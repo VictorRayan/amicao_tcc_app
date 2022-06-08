@@ -15,6 +15,15 @@ class PetsController extends Controller
         return view('pets')->with('pets', $pets);//->with('info', $info);
     }
 
+    public function inspectPet(Request $request){
+
+        $id=$request->route('id');
+
+        $pet = DB::select('select * from tb_pets where id=?', array($id));
+
+        return view('alterar_pet')->with('pet', $pet);
+    }
+
     public function deletePet(Request $request){
         $id = $request->route('id');
 
@@ -29,6 +38,34 @@ class PetsController extends Controller
         }
 
         return redirect()->action([PetsController::class, 'listPets'])->with('info', $info);
+    }
+
+    public function updatePet(PetsRequest $request){
+
+        $id = $request->post('txtId');
+        $nome = $request->post('txtNome');
+        $idade = $request->post('txtIdade');
+        $raca = $request->post('txtRaca');
+        $raca_pai = $request->post('txtRacaP');
+        $raca_mae = $request->post('txtRacaM');
+        $saude = $request->post('txtSaude');
+        $vacinas = $request->post('txtVacinas');
+        $porte = $request->post('txtPorte');
+        $genero = $request->post('txtGenero');
+
+        $update = DB::update('update tb_pets
+        set nome = ?,
+        set idade = ?,
+        set raca = ?,
+        set raca_pai = ?, 
+        set raca_mae = ?,
+        set saude = ?,
+        set vacinas_essenciais = ?,
+        set porte = ?,
+        set genero = ?
+        where id=? ', array($nome, $idade, $raca, $raca_pai, $raca_mae, $saude, $vacinas,
+        $porte, $genero, $id));
+    
     }
 
     public function insertPet(PetsRequest $request){

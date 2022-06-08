@@ -28,9 +28,11 @@ Route::get('/institucional/requisicoes', function(){
     return view('requisicoes');
 });
 
-Route::get('/institucional/pets/excluir/{id}',[PetsController::class, 'deletePet']);
+Route::get('/institucional/pets/alterar/{id}', [PetsController::class, 'inspectPet']);
 
-Route::post('/institucional/pets/alterar/{id}', [PetsController::class, 'updatePet']);
+Route::post('/institucional/pets/excluir/{id}',[PetsController::class, 'deletePet']);
+
+Route::post('/institucional/pets/alterar/do', [PetsController::class, 'updatePet']);
 
 Route::get('/institucional/pets/cadastrar', function(){
     return view('cadastrar_pet');

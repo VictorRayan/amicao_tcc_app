@@ -37,7 +37,7 @@
                         </tr>
 
                         <tr>
-                            <td><a href="/institucional/pets/alterar">Alterar</a></td>
+                            <td><a href="/institucional/pets/alterar/<?= $pet->id?>">Alterar</a></td>
                             <td><a href="/institucional/pets/excluir/<?= $pet->id ?>">Excluir</a></td>
                         </tr>
                     <?php endforeach ?>
