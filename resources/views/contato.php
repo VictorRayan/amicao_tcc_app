@@ -14,12 +14,12 @@
 		<header id = cab>
 			<nav id="nav" class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="home.html">
+					<a class="navbar-brand" href="home.php">
 						<img src="style/img/amicao_logo.png" style="width:40px;" class="square-pill"> 	
 				  	</a>
-				  	<a href="contato.html" class="btn btn-outline-warning" id="contato">Contato</a>
-					<a href="empresa.html" class="btn btn-outline-warning" id="empresa">Empresa</a>
-					<a href="adm.html" class="btn btn-outline-secondary" id="adm">Administração</a>
+				  	<a href="contato.php" class="btn btn-outline-warning" id="contato">Contato</a>
+					<a href="empresa.php" class="btn btn-outline-warning" id="empresa">Empresa</a>
+					<a href="adm.php" class="btn btn-outline-secondary" id="adm">Administração</a>
 					<button class="btn btn-warning" id="downloadnav"><i class="fa fa-download"></i>    Baixar</button>
 				</div>
 			</nav>

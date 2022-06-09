@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use App\Http\Requests\PetsRequest;
+use App\Http\Requests\PetsAddRequest;
+use App\Http\Requests\PetsUpdateRequest;
 
 class PetsController extends Controller
 {
@@ -20,6 +21,8 @@ class PetsController extends Controller
         $id=$request->route('id');
 
         $pet = DB::select('select * from tb_pets where id=?', array($id));
+
+        
 
         return view('alterar_pet')->with('pet', $pet);
     }
@@ -40,9 +43,9 @@ class PetsController extends Controller
         return redirect()->action([PetsController::class, 'listPets'])->with('info', $info);
     }
 
-    public function updatePet(PetsRequest $request){
+    public function updatePet(PetsUpdateRequest $request){
 
-        $id = $request->post('txtId');
+        $id = $request->post('txtCod');
         $nome = $request->post('txtNome');
         $idade = $request->post('txtIdade');
         $raca = $request->post('txtRaca');
@@ -55,20 +58,30 @@ class PetsController extends Controller
 
         $update = DB::update('update tb_pets
         set nome = ?,
-        set idade = ?,
-        set raca = ?,
-        set raca_pai = ?, 
-        set raca_mae = ?,
-        set saude = ?,
-        set vacinas_essenciais = ?,
-        set porte = ?,
-        set genero = ?
+        idade = ?,
+        raca = ?,
+        raca_pai = ?, 
+        raca_mae = ?,
+        saude = ?,
+        vacinas_essenciais = ?,
+        porte = ?,
+        genero = ?
         where id=? ', array($nome, $idade, $raca, $raca_pai, $raca_mae, $saude, $vacinas,
         $porte, $genero, $id));
+
+        $op_status ="";
+        if($update){
+            $op_status = "update_sucess";
+        }
+        else{
+            $op_status = "update_fail";
+        }
+
+        return redirect([PetsController::class, 'listPets'])->with('op_info', $op_status);
     
     }
 
-    public function insertPet(PetsRequest $request){
+    public function insertPet(PetsAddRequest $request){
         $nome = $request->post('txtNome');
         $idade = $request->post('txtIdade');
         $raca = $request->post('txtRaca');

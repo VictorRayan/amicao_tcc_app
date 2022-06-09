@@ -28,43 +28,50 @@
 		</header>
 
 
-		<div id = "div1">
-        <form id="frmCad" method="post" action="/institucional/pets/alterar/do/<?= $pet->id ?>">
-            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-			<span class="lCod">Código:</span><br><input class="codigo" type=text name=txtCod placeholder="Código"><br><br>
-			<span class="lNome">Nome:</span><br><input class="nome" type=text name=txtNome placeholder="Nome"><br><br>
-			<span class="lIdade">Idade:</span><br><input class="idade" type=text name=txtIdade placeholder="Idade"><br><br>
-			<span class="lRaça">Raça:</span><br><input class="raca" type=text name=txtRaca placeholder="Raça"><br><br>
-			<span>Gênero:</span><br>
-			<select class = "genero" name="txtGenero">
+		
+        <form id="frmCad" method="post" action="/institucional/pets/alterar/do">
+			<div id = "div1">
+           		<input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+				<input type="hidden" name="txtCod" value="<?= $pet[0]->id ?>">
+				<span class="lNome">Nome:</span><br><input class="nome" type=text name=txtNome placeholder="Nome" value="<?= $pet[0]->nome ?>"><br><br>
+				<span class="lIdade">Idade:</span><br><input class="idade" type=text name=txtIdade placeholder="Idade" value="<?= $pet[0]->idade ?>"><br><br>
+				<span class="lRaça">Raça:</span><br><input class="raca" type=text name=txtRaca placeholder="Raça" value="<?= $pet[0]->raca ?>"><br><br>
+				<span>Gênero:</span><br>
+				<select class = "genero" name="txtGenero">
 
-				<?php if($pet->genero == "macho"):?>
-	  				<option value="macho" selected>Macho</option>
-					<option value="femea">Fêmea</option>
-				<?php else:?>
-					<option value="macho">Macho</option>
-					<option value="femea" selected>Fêmea</option>
-				<?php endif ?>
-			</select>
-		</div>
-		<div id = "div2">
-			<span>Porte:</span><br>
-			<select class = "porte" name="txtPorte">
-	  			<option value="pequeno" <?php if($pet->porte=="pequeno"){ echo "pequeno";} ?> >Pequeno</option>
-				<option value="medio" <?php if($pet->porte=="medio"){ echo "medio";} ?>>Médio</option>
-				<option value="grande" <?php if($pet->porte=="grande"){ echo "grande";} ?>>Grande</option>
-			</select><br><br>
-			<span class="lRaçaP">Raça do pai:</span><br><input class="racap" type=text name=txtRacaP placeholder="Raça do pai"><br><br>
-			<span class="lRaçaM">Raça da mãe:</span><br><input class="racam" type=text name=txtRacaM placeholder="Raça da mãe"><br><br>
-			<span>Vacinas(essenciais):</span><br>
-			<select class = "vacinas" name="txtVacinas">
-	  			<option value="sim" <?php if($pet->vacinas_essenciais=="sim"){echo "selected";} ?>>Sim</option>
-				<option value="nao" <?php if($pet->vacinas_essenciais=="nao"){echo "selected";} ?>>Não</option>
-			</select><br><br>
-			<span class="lSaude">Problemas de saúde (se houver):</span><br><input id="saude" class="saude" type=text name=txtSaude placeholder="Problemas de saúde (se houver)" value="<?= $pet->saude?>"><br><br>
-			<input type="submit" class="btn btn-outline-warning" id="cadastrar" value="Cadastrar">
-            </form>
-        </div>
+					<?php if($pet[0]->genero == "macho"):?>
+	  					<option value="macho" selected>Macho</option>
+						<option value="femea">Fêmea</option>
+					<?php else:?>
+						<option value="macho">Macho</option>
+						<option value="femea" selected>Fêmea</option>
+					<?php endif ?>
+				</select>
+			</div>
+			<div id = "div2">
+				<span>Porte:</span><br>
+				<select class = "porte" name="txtPorte">
+	  				<option value="pequeno" <?php if($pet[0]->porte=="pequeno"){ echo "selected";} ?> >Pequeno</option>
+					<option value="medio" <?php if($pet[0]->porte=="medio"){ echo "selected";} ?>>Médio</option>
+					<option value="grande" <?php if($pet[0]->porte=="grande"){ echo "selected";} ?>>Grande</option>
+				</select><br><br>
+				<span class="lRaçaP">Raça do pai:</span><br><input class="racap" type=text name=txtRacaP placeholder="Raça do pai" value="<?= $pet[0]->id ?>"><br><br>
+				<span class="lRaçaM">Raça da mãe:</span><br><input class="racam" type=text name=txtRacaM placeholder="Raça da mãe" value="<?= $pet[0]->id ?>"><br><br>
+				<span>Vacinas(essenciais):</span><br>
+				<select class = "vacinas" name="txtVacinas">
+	  				<option value="sim" <?php if($pet[0]->vacinas_essenciais=="sim"){echo "selected";} ?>>Sim</option>
+					<option value="nao" <?php if($pet[0]->vacinas_essenciais=="nao"){echo "selected";} ?>>Não</option>
+				</select><br><br>
+				<span class="lSaude">Problemas de saúde (se houver):</span><br><input id="saude" class="saude" type=text name=txtSaude placeholder="Problemas de saúde (se houver)" value="<?= $pet[0]->saude?>"><br><br>
+				<input type="submit" class="btn btn-outline-warning" id="alterar" value="Alterar">
+           
+        	</div>
+		</form>
+		
+		<?php if(isset($op_info)): ?>
+
+
+		
         
 	</body>
 </html>
