@@ -69,9 +69,18 @@
 		</form>
 		
 		<?php if(isset($op_info)): ?>
+			<?php if($op_info=="update_sucess"):?>
+				<div class="alert alert-sucess">
+					<p>Dados do pet atualizados </p>
+				</div>
+			<?php else: ?>
+				<div class="alert alert-danger">
+					<p>Erro ao tentar atualizar dados. </p>
+					<p>Tente novamente mais tarde :(</p>
+				</div>
+			<?php endif ?>
+		<?php endif ?>
 
-
-		
         
 	</body>
 </html>

@@ -112,4 +112,10 @@ class PetsController extends Controller
             ->action([PetsController::class, 'listPets'])
             ->with('info', $info);
     }
+
+
+
+    //Operations to app (ajax) and webserver requests:
+
+    
 }

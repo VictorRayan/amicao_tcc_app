@@ -14,6 +14,9 @@ use App\Http\Controllers\PetsController;
 |
 */
 
+
+//WEBSITE ROUTES:---------------------------------------------------------------------
+
 Route::get('/', function(){
     return view('home');
 });
@@ -38,9 +41,25 @@ Route::get('/institucional/pets/cadastrar', function(){
     return view('cadastrar_pet');
 });
 
-
 Route::post('/institucional/pets/cadastrar/add', [PetsController::class, 'insertPet']);
+//END WEBSITE ROUTES-----------------------------------------------------------------
 
+
+
+
+//APP ROUTES-------------------------------------------------------------------------
+
+//This must to receive the parameter "return_type" that must be equals "json"
+
+Route::get('/application_retrieve/pets', [PetsController::class, 'listPets']);
+Route::get('/application_retrieve/pets/inspect/{id}', [PetsController::class, 'inspectPet']);
+
+
+
+
+
+
+//END APP ROUTES---------------------------------------------------------------------
 
 
 
