@@ -29,9 +29,9 @@
 
 
 		<div id = "div1">
-        <form id="frmCad" method="post" action="/institucional/pets/cadastrar/add">
-            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-			<span class="lCod">Código:</span><br><input class="codigo" type=text name=txtCod placeholder="Código"><br><br>
+        <form id="frmCad" method="post" action="/institucional/pets/cadastrar/add" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{{ csrf_token() }}}"><br>
+			<span class="lFoto">Foto:</span><br><input type="file" id="inpFoto" name="inpFoto" accept="image/*">
 			<span class="lNome">Nome:</span><br><input class="nome" type=text name=txtNome placeholder="Nome"><br><br>
 			<span class="lIdade">Idade:</span><br><input class="idade" type=text name=txtIdade placeholder="Idade"><br><br>
 			<span class="lRaça">Raça:</span><br><input class="raca" type=text name=txtRaca placeholder="Raça"><br><br>

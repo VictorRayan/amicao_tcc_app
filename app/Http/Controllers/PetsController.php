@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Http\Requests\PetsAddRequest;
 use App\Http\Requests\PetsUpdateRequest;
+use File;
+use Carbon\Carbon;
 
 class PetsController extends Controller
 {
@@ -91,7 +93,8 @@ class PetsController extends Controller
         $vacinas = $request->post('txtVacinas');
         $porte = $request->post('txtPorte');
         $genero = $request->post('txtGenero');
-
+        $foto = $request->file('inpFoto');
+        (new PetsController)->getHash($foto);
 
         $insert = DB::insert('insert into tb_pets(nome, idade, raca, raca_pai,
         raca_mae, saude, vacinas_essenciais, porte, genero) values(
@@ -117,5 +120,49 @@ class PetsController extends Controller
 
     //Operations to app (ajax) and webserver requests:
 
+    public function getHash($file){
+        
+        /*
+        $filename=$file->getClientOriginalName();
+        $file->storeAs('/', $filename, 'public');
+        $file->storeAs('tmp', $filename, 'public');
+
+        File::delete('tmp/'.$filename);
+
+
+        */
+        $current_timestamp  = Carbon::now()->timestamp;
+        $filename = hash('sha256', 'tmp'.$file->getClientOriginalName().$file->getClientOriginalExtension().
+        $file->getSize().$current_timestamp).".".$file->getClientOriginalExtension();
+
+        $tmp_dir = hash('sha256', 'tmp'.$file->getClientOriginalName().$file->getClientOriginalExtension().
+        $file->getSize().$current_timestamp.'30/07/2003');
+
+        $file->storeAs($tmp_dir, $filename, 'public');
+
+        $main_img_name = hash_file('sha256', storage_path('app/public/'.$tmp_dir."/".$filename));
+
+        $file->storeAs('/', $main_img_name, 'public');
+
+        
+        //Alternatives to delete files:
+        
+        /*
+        unlink(realpath(storage_path('app/public/'.$tmp_dir.'/'.$filename)));
+        rmdir(realpath(storage_path('app/public/'.$tmp_dir)));
+        */
+
+
+        /*
+        unlink(storage_path('app/public/'.$tmp_dir.'/'.$filename));
+        */
+
+        File::delete(storage_path('app/public/'.$tmp_dir.'/'.$filename));
+        
+        rmdir(storage_path('app/public/'.$tmp_dir));
+        
+        
+
+    }
     
 }

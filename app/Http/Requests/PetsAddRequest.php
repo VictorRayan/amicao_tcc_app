@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PetsRequest extends FormRequest
+class PetsAddRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +33,8 @@ class PetsRequest extends FormRequest
             'txtSaude' => 'required',
             'txtVacinas' => 'required',
             'txtPorte' => 'required|max:20',
-            'txtGenero' => 'required'
+            'txtGenero' => 'required',
+            'inpFoto' => 'nullable'
         ];
     }
 }
