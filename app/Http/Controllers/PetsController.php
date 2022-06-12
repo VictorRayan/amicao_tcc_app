@@ -31,12 +31,18 @@ class PetsController extends Controller
 
     public function deletePet(Request $request){
         $id = $request->post('txtId');
-
+        $foto = DB::select('select img_path from tb_pets where id=?', array($id));
         $delete = DB::delete('delete from tb_pets where id=?', array($id));
 
         $info = "";
         if($delete){
-            $info="deleted_pet";
+
+            if(File::delete(storage_path('app/public/'.$foto[0]->img_path))){
+                $info="deleted_pet";
+            }
+            else{
+                $info="error_delete_pet";    
+            }
         }
         else{
             $info="error_delete_pet";
@@ -116,10 +122,6 @@ class PetsController extends Controller
             ->with('info', $info);
     }
 
-
-
-    //Operations to app (ajax) and webserver requests:
-
     public function getHash($file){
         
         /*
@@ -161,8 +163,27 @@ class PetsController extends Controller
         
         rmdir(storage_path('app/public/'.$tmp_dir));
         
-        return storage_path('app/public/'.$main_img_name);
+        return $main_img_name;
 
+    }
+
+
+    
+    //Operations to app (ajax) and webserver requests:
+
+
+
+    public function listPets_app(){
+
+        $pets = DB::select('select * from tb_pets');
+        return json_encode($pets);
+    }
+
+    public function inspectPet_app(Request $request){
+        $id=$request->route('id');
+        $pet = DB::select('select * from tb_pets where id=?', array($id));
+
+        return json_encode($pet);;
     }
     
 }

@@ -51,8 +51,8 @@ Route::post('/institucional/pets/cadastrar/add', [PetsController::class, 'insert
 
 //This must to receive the parameter "return_type" that must be equals "json"
 
-Route::get('/application_retrieve/pets', [PetsController::class, 'listPets']);
-Route::get('/application_retrieve/pets/inspect/{id}', [PetsController::class, 'inspectPet']);
+Route::get('/application_retrieve/pets', [PetsController::class, 'listPets_app']);
+Route::get('/application_retrieve/pets/inspect/{id}', [PetsController::class, 'inspectPet_app']);
 
 
 
