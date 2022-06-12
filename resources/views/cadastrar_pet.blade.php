@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="style/estiloadm.css"/>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+		
 		<title>Amicão - Admin</title>
 	</head>
 	<body>
@@ -31,7 +31,7 @@
 		<div id = "div1">
         <form id="frmCad" method="post" action="/institucional/pets/cadastrar/add" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{{ csrf_token() }}}"><br>
-			<span class="lFoto">Foto:</span><br><input type="file" id="inpFoto" name="inpFoto" accept="image/*">
+			<span class="lFoto">Foto:</span><br><input type="file" id="inpFoto" name="inpFoto" accept="image/*" >
 			<span class="lNome">Nome:</span><br><input class="nome" type=text name=txtNome placeholder="Nome"><br><br>
 			<span class="lIdade">Idade:</span><br><input class="idade" type=text name=txtIdade placeholder="Idade"><br><br>
 			<span class="lRaça">Raça:</span><br><input class="raca" type=text name=txtRaca placeholder="Raça"><br><br>
@@ -40,6 +40,13 @@
 	  			<option value="macho">Macho</option>
 				<option value="femea">Fêmea</option>
 			</select>
+
+			<span>Status:</span><br>
+			<select class = "status" name="txtStatus">
+	  			<option value="disponivel">Disponível</option>
+				<option value="apadrinhado">Apadrinhado</option>
+				<option value="em_adocao">Em adoção</option>
+			</select><br><br>
 		</div>
 		<div id = "div2">
 			<span>Porte:</span><br>

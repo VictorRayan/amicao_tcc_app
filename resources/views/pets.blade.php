@@ -39,6 +39,7 @@
                             <td>Idade: <?= $pet->idade ?></td>
                             <td>Raca: <?= $pet->raca ?></td>
                             <td>Porte: <?= $pet->porte ?></td>
+                            <td>Status: <?= $pet->status ?></td>
                         </tr>
 
                         <tr>

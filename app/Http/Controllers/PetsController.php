@@ -63,6 +63,13 @@ class PetsController extends Controller
         $vacinas = $request->post('txtVacinas');
         $porte = $request->post('txtPorte');
         $genero = $request->post('txtGenero');
+        $status = $request->post('txtStatus');
+        $foto = $request->file('inpFoto');
+        $img_path = "";
+
+        if($foto!=null){
+            $img_path = (new PetsController)->getHash($foto);
+        }
 
         $update = DB::update('update tb_pets
         set nome = ?,
@@ -73,9 +80,11 @@ class PetsController extends Controller
         saude = ?,
         vacinas_essenciais = ?,
         porte = ?,
-        genero = ?
+        genero = ?,
+        status = ?, 
+        img_path = ?
         where id=? ', array($nome, $idade, $raca, $raca_pai, $raca_mae, $saude, $vacinas,
-        $porte, $genero, $id));
+        $porte, $genero, $status, $img_path, $id));
 
         $op_status ="";
         if($update){
@@ -85,8 +94,8 @@ class PetsController extends Controller
             $op_status = "update_fail";
         }
 
-        return redirect([PetsController::class, 'listPets'])->with('op_info', $op_status);
-    
+        return redirect()->action([PetsController::class, 'listPets'])->with('op_info', $op_status);
+
     }
 
     public function insertPet(PetsAddRequest $request){
@@ -100,13 +109,21 @@ class PetsController extends Controller
         $porte = $request->post('txtPorte');
         $genero = $request->post('txtGenero');
         $foto = $request->file('inpFoto');
-        $img_path = (new PetsController)->getHash($foto);
+        $status = $request->post('txtStatus');
+        $img_path = "";
+
+        if($foto!=null){
+            $img_path = (new PetsController)->getHash($foto);
+        }
+        
+            
+        
 
         $insert = DB::insert('insert into tb_pets(nome, idade, raca, raca_pai,
-        raca_mae, saude, vacinas_essenciais, porte, genero, img_path) values(
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        raca_mae, saude, vacinas_essenciais, porte, genero, img_path, status) values(
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )', array($nome, $idade, $raca, $raca_pai, $raca_mae, $saude, $vacinas,
-                $porte, $genero, $img_path
+                $porte, $genero, $img_path, $status
         ));
 
         $info="";

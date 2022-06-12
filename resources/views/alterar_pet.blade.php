@@ -47,6 +47,7 @@
 						<option value="femea" selected>Fêmea</option>
 					<?php endif ?>
 				</select>
+
 			</div>
 			<div id = "div2">
 				<span>Porte:</span><br>
@@ -64,6 +65,13 @@
 				</select><br><br>
 				<span class="lSaude">Problemas de saúde (se houver):</span><br><input id="saude" class="saude" type=text name=txtSaude placeholder="Problemas de saúde (se houver)" value="<?= $pet[0]->saude?>"><br><br>
 				<input type="submit" class="btn btn-outline-warning" id="alterar" value="Alterar">
+
+				<span>Status:</span><br>
+				<select class = "status" name="txtStatus">
+	  				<option value="disponivel" <?php if($pet[0]->status=="disponivel"){ echo "selected";} ?> >Disponível</option>
+					<option value="apadrinhado" <?php if($pet[0]->status=="apadrinhado"){ echo "selected";} ?> >Apadrinhado</option>
+					<option value="em_adocao" <?php if($pet[0]->status=="em_adocao"){ echo "selected";} ?> >Em adoção</option>
+				</select><br><br>
            
         	</div>
 		</form>

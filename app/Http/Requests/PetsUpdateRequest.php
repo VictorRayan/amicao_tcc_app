@@ -34,7 +34,9 @@ class PetsUpdateRequest extends FormRequest
             'txtSaude' => 'required',
             'txtVacinas' => 'required',
             'txtPorte' => 'required|max:20',
-            'txtGenero' => 'required'
+            'txtGenero' => 'required',
+            'inpFoto' => 'nullable',
+            'txtStatus' => 'required'
         ];
     }
 }
