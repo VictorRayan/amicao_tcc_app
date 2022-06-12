@@ -30,7 +30,7 @@ class PetsController extends Controller
     }
 
     public function deletePet(Request $request){
-        $id = $request->route('id');
+        $id = $request->post('txtId');
 
         $delete = DB::delete('delete from tb_pets where id=?', array($id));
 
@@ -94,13 +94,13 @@ class PetsController extends Controller
         $porte = $request->post('txtPorte');
         $genero = $request->post('txtGenero');
         $foto = $request->file('inpFoto');
-        (new PetsController)->getHash($foto);
+        $img_path = (new PetsController)->getHash($foto);
 
         $insert = DB::insert('insert into tb_pets(nome, idade, raca, raca_pai,
-        raca_mae, saude, vacinas_essenciais, porte, genero) values(
-            ?, ?, ?, ?, ?, ?, ?, ?, ?
+        raca_mae, saude, vacinas_essenciais, porte, genero, img_path) values(
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )', array($nome, $idade, $raca, $raca_pai, $raca_mae, $saude, $vacinas,
-                $porte, $genero
+                $porte, $genero, $img_path
         ));
 
         $info="";
@@ -140,11 +140,11 @@ class PetsController extends Controller
 
         $file->storeAs($tmp_dir, $filename, 'public');
 
-        $main_img_name = hash_file('sha256', storage_path('app/public/'.$tmp_dir."/".$filename));
+        $main_img_name = hash_file('sha256', storage_path('app/public/'.$tmp_dir."/".$filename)).".".$file->getClientOriginalExtension();
 
         $file->storeAs('/', $main_img_name, 'public');
 
-        
+
         //Alternatives to delete files:
         
         /*
@@ -161,7 +161,7 @@ class PetsController extends Controller
         
         rmdir(storage_path('app/public/'.$tmp_dir));
         
-        
+        return storage_path('app/public/'.$main_img_name);
 
     }
     

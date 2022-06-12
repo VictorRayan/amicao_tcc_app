@@ -33,7 +33,7 @@ Route::get('/institucional/requisicoes', function(){
 
 Route::get('/institucional/pets/alterar/{id}', [PetsController::class, 'inspectPet']);
 
-Route::post('/institucional/pets/excluir/{id}',[PetsController::class, 'deletePet']);
+Route::post('/institucional/pets/excluir/',[PetsController::class, 'deletePet']);
 
 Route::post('/institucional/pets/alterar/do', [PetsController::class, 'updatePet']);
 
