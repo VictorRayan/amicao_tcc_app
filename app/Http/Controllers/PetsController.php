@@ -11,11 +11,18 @@ use Carbon\Carbon;
 
 class PetsController extends Controller
 {
+
+    public $info = null;
     public function listPets(){
             
         $pets = DB::select('select * from tb_pets');
 
-        return view('pets')->with('pets', $pets);//->with('info', $info);
+        //dd($this->info);
+        if($this->info!=null || $this->info!=""){
+            return view('pets')->with('pets', $pets)->with('info', $this->info);    
+        }else{
+            return view('pets')->with('pets', $pets);//->with('info', $info);
+        }
     }
 
     public function inspectPet(Request $request){
@@ -34,21 +41,21 @@ class PetsController extends Controller
         $foto = DB::select('select img_path from tb_pets where id=?', array($id));
         $delete = DB::delete('delete from tb_pets where id=?', array($id));
 
-        $info = "";
+        $this->info = "";
         if($delete){
 
             if(File::delete(storage_path('app/public/'.$foto[0]->img_path))){
-                $info="deleted_pet";
+                $this->info="deleted_pet";
             }
             else{
-                $info="error_delete_pet";    
+                $this->info="error_delete_pet";    
             }
         }
         else{
-            $info="error_delete_pet";
+            $this->info="error_delete_pet";
         }
 
-        return redirect()->action([PetsController::class, 'listPets'])->with('info', $info);
+        return redirect()->action([PetsController::class, 'listPets']);
     }
 
     public function updatePet(PetsUpdateRequest $request){
@@ -93,8 +100,9 @@ class PetsController extends Controller
         else{
             $op_status = "update_fail";
         }
-
-        return redirect()->action([PetsController::class, 'listPets'])->with('op_info', $op_status);
+        
+        $this->info = $op_status;
+        return redirect()->action([PetsController::class, 'listPets']);
 
     }
 
@@ -126,17 +134,17 @@ class PetsController extends Controller
                 $porte, $genero, $img_path, $status
         ));
 
-        $info="";
+        $info_="";
         if($insert){
-            $info = "inserted_pet";
+            $info_ = "inserted_pet";
         }
         else{
-            $info = "error_inserting_pet";
+            $info_ = "error_inserting_pet";
         }
 
+        $this->info = $info_;
         return redirect()
-            ->action([PetsController::class, 'listPets'])
-            ->with('info', $info);
+            ->action([PetsController::class, 'listPets']);
     }
 
     public function getHash($file){
@@ -193,6 +201,7 @@ class PetsController extends Controller
     public function listPets_app(){
 
         $pets = DB::select('select * from tb_pets');
+        dd(json_encode($pets));
         return json_encode($pets);
     }
 
@@ -200,6 +209,7 @@ class PetsController extends Controller
         $id=$request->route('id');
         $pet = DB::select('select * from tb_pets where id=?', array($id));
 
+        dd(json_encode($pet));   
         return json_encode($pet);;
     }
     
