@@ -27,7 +27,7 @@
         <div id="div1" class="ex1">
             <div id="div2">
                 <p class="main">Desenvolvedores:<br><br>Kaick Kenithi Nishiya<br>
-                    Kauan Matos<br>Moacir José da Silva Filho<br>Nathan Enrico Romero<br>Pedro Goldoni Magri<br>Victor Rayan
+                    Kauan Matos<br>Moacir José da Silva Filho<br>Nathan Enrico Romero<br>Pedro Goldoni Magri<br>Victor Rayan Barbieri
                     <br><br><br><br>Projeto de TCC do ano 2022 do curso de Desenvolvimento de Sistemas da <br>Etec Lauro Gomes
                 </p>
             </div>
